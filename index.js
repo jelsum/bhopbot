@@ -20,7 +20,7 @@ const commands = [];
 // Read command files and add them to containers
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	client.commands.set(command.data.name, command.data.value);
+	client.commands.set(command.data.name, command);
 	commands.push(command.data.toJSON());
 }
 
@@ -35,6 +35,7 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 			Routes.applicationGuildCommands(applicationId, guildId),
 			{ body: commands },
 		);
+		console.log('Slash commands registered!');
 	}
 	catch (err) {
 		console.error(err);
@@ -44,8 +45,8 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 // Interaction handler
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-
 	const command = client.commands.get(interaction.commandName);
+
 	if (!command) return;
 
 	try {
@@ -68,7 +69,7 @@ const con = new mysql.createConnection({
 });
 
 // Initialize database connection
-dbConnect();
+// dbConnect();
 
 // If the database connection ever has an error, end the connection and create a new one.
 con.on('error', (err) => {
