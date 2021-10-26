@@ -49,12 +49,23 @@ client.on('interactionCreate', async interaction => {
 
 	if (!command) return;
 
-	try {
-		await command.execute(interaction);
+	if (command.requireDB) {
+		try {
+			await command.execute(interaction, con);
+		}
+		catch (err) {
+			console.error(err);
+			await interaction.reply({ content: 'There was an error executing this command.', ephemeral: true });
+		}
 	}
-	catch (err) {
-		console.error(err);
-		await interaction.reply({ content: 'There was an error executing this command.', ephemeral: true });
+	else {
+		try {
+			await command.execute(interaction);
+		}
+		catch (err) {
+			console.error(err);
+			await interaction.reply({ content: 'There was an error executing this command.', ephemeral: true });
+		}
 	}
 });
 
