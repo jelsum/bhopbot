@@ -22,7 +22,7 @@ module.exports = {
 			},
 		};
 
-		fetch (`${SOURCEJUMP_API_URL}/records/${mapName}`, apiOptions)
+		fetch(`${SOURCEJUMP_API_URL}/records/${mapName}`, apiOptions)
 			.then(response => response.text())
 			.then(body => {
 				// Check if there is a valid response.

@@ -3,3 +3,7 @@ node_modules/
 
 #config
 config.json
+
+#working directories
+planned/
+in_progress/
