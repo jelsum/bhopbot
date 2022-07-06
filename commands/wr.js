@@ -53,8 +53,7 @@ module.exports = {
 		}
 		con.query(sql, [track, style], (err, result) => {
 			if (err) {
-				console.error(err);
-				return interaction.reply({ content: 'There has been an issue with this query. Yell at Merz.' });
+				return interaction.reply({ content: 'There has been an issue with this query. Yell at Merz. \n' + err });
 			}
 
 			if (!result.length) {
